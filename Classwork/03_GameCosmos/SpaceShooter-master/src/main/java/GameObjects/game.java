@@ -55,6 +55,7 @@ public class game {
         spawnAsteroid(400,250);
         spawnAsteroid(550,250);
 
+        //ПУНКТ 2. Вывод очков за каждый уничтоженный астероид.
         initScoreText();
 
         Label debug = getDebugLabel();
@@ -137,6 +138,10 @@ public class game {
     }
 
     private void moveCharacter(){
+        //ПУНКТ 4. Запрещаем столкновение игрока с астероидами
+        double prevX = player.getPositionX(); //сохраняем предыдущую позицию игрока перед нажатием каких-либо клавиш (т.е. мы имеем текущую позицию игрока перед тем, как она будет изменена)
+        double prevY = player.getPositionY();
+
         boolean w = input.contains("W");
         boolean a = input.contains("A");
         boolean s = input.contains("S");
@@ -172,6 +177,7 @@ public class game {
             }
         }
 
+        //ПУНКТ 3. Меняем скорост перемещения игрока
         boolean quick = input.contains("1");
         boolean fast = input.contains("2");
         boolean veryFast = input.contains("3");
@@ -220,10 +226,12 @@ public class game {
                     }
                 }
 
-//                if(ast.intersects(player)){
-//                    list.remove(ast);
-//                    break;
-//                }
+                //ПУНКТ 4. Продолжение
+                if(ast.intersects(player)){ //если астероид пересекает игрока, то возвращаем игрока на предыдущую позицию
+                    player.setPosition(prevX, prevY);
+                    break;
+                }
+
             }
             if(nd instanceof projectile){
                 projectile pro = (projectile) nd;

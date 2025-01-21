@@ -21,6 +21,7 @@ class asteroid extends sprite {
 
         size = getRandSize();
         updateSpinningFreq();
+        //ПУНКТ 1. Смена спрайта
         super.setImage("/images/img.png",size,size);
 
         Random rng = new Random();
@@ -95,6 +96,7 @@ class asteroid extends sprite {
             double x = getX();
             double y = getY();
 
+            //ПУНКТ 1. Смена спрайта
             setImage("/images/img.png",size,size);
 //            setPosition(x + getWidth()/2, y + getHeight()/2);
             setPosition(x + dmg/2,y + dmg/2);
