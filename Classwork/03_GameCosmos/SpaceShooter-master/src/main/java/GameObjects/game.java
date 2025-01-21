@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -19,6 +20,7 @@ import static Game.SpaceShooter.*;
 public class game {
 
     private static player player;
+    private static player secondPlayer; //ПУНКТ 5. добавляем код для 2 игрока
     private static ArrayList<String> input;
 
     private static double dimX;
@@ -33,6 +35,7 @@ public class game {
 
     public game(double x, double y) {
         player = new player(0,0);
+        secondPlayer = new player(0,500); //ПУНКТ 5. добавляем код для 2 игрока
         input = new ArrayList<>();
         dimX = x;
         dimY = y;
@@ -51,6 +54,10 @@ public class game {
         gameBox.getChildren().add(background);
         gameBox.getChildren().addAll(player);
         gameBox.getChildren().addAll(player.getCANNON());
+
+        //ПУНКТ 5. добавляем код для 2 игрока
+        gameBox.getChildren().addAll(secondPlayer);
+        gameBox.getChildren().addAll(secondPlayer.getCANNON());
 
         spawnAsteroid(400,250);
         spawnAsteroid(550,250);
@@ -98,18 +105,30 @@ public class game {
             input.remove(keyInput);
         });
 
-        gameBox.setOnMouseDragged(event -> player.rotateCannon(event));
-        gameBox.setOnMouseMoved(event -> player.rotateCannon(event));
+        //ПУНКТ 5. все действия с мышкой у игроков будут одинаковые, т.к. мышка только одна. ниже добавляем аналогичный код для 2 игрока
+        gameBox.setOnMouseDragged(event -> {
+            player.rotateCannon(event);
+            secondPlayer.rotateCannon(event);
+        });
+
+        gameBox.setOnMouseMoved(event -> {
+            player.rotateCannon(event);
+            secondPlayer.rotateCannon(event);
+        });
 
         gameBox.setOnMousePressed(event -> {
 //            player.rotateCannon(event);
 
             if(event.getButton().toString().equals("PRIMARY")){
                 player.startFiring();
+                secondPlayer.startFiring();
             }
         });
 
-        gameBox.setOnMouseReleased(event -> player.stopFiring());
+        gameBox.setOnMouseReleased(event -> {
+            player.stopFiring();
+            secondPlayer.stopFiring();
+        });
 
         root.setCenter(gameBox);
         root.setTop(optionBox);
@@ -141,6 +160,10 @@ public class game {
         //ПУНКТ 4. Запрещаем столкновение игрока с астероидами
         double prevX = player.getPositionX(); //сохраняем предыдущую позицию игрока перед нажатием каких-либо клавиш (т.е. мы имеем текущую позицию игрока перед тем, как она будет изменена)
         double prevY = player.getPositionY();
+
+        //ПУНКТ 5. добавляем код для 2 игрока (пусть ему тоже нельзя будет сталкиваться с астероидами)
+        double prevXSecondPlayer = secondPlayer.getPositionX();
+        double prevYSecondPlayer = secondPlayer.getPositionY();
 
         boolean w = input.contains("W");
         boolean a = input.contains("A");
@@ -177,7 +200,26 @@ public class game {
             }
         }
 
-        //ПУНКТ 3. Меняем скорост перемещения игрока
+        //ПУНКТ 5. Добавляем код который следит за нажатием на стрелочки второго игрока
+        boolean up = input.contains("UP");
+        boolean down = input.contains("DOWN");
+        boolean right = input.contains("RIGHT");
+        boolean left = input.contains("LEFT");
+
+        if(up){
+            secondPlayer.addVelocity(0,-0.01);
+        }
+        if(left){
+            secondPlayer.addVelocity(-0.01,0);
+        }
+        if(down){
+            secondPlayer.addVelocity(0,0.01);
+        }
+        if(right){
+            secondPlayer.addVelocity(0.01,0);
+        }
+
+        //ПУНКТ 3. Меняем скорость перемещения первого игрока
         boolean quick = input.contains("1");
         boolean fast = input.contains("2");
         boolean veryFast = input.contains("3");
@@ -193,6 +235,7 @@ public class game {
         }
 
         player.update((double) 1000/ getUpdateRate());
+        secondPlayer.update((double) 1000/ getUpdateRate()); //ПУНКТ 5
 
         addFlameEffects(w, a, s, d, ctrl);
 //        addFlameEffectUP(w,ctrl);
@@ -201,6 +244,7 @@ public class game {
 //        addFlameEffectRIGHT(d,ctrl);
 
         player.rotateCannon();
+        secondPlayer.rotateCannon(); //ПУНКТ 5
 
         ObservableList<Node> list = gameBox.getChildren();
         for(int i = 0; i < list.size();i++){
@@ -229,6 +273,11 @@ public class game {
                 //ПУНКТ 4. Продолжение
                 if(ast.intersects(player)){ //если астероид пересекает игрока, то возвращаем игрока на предыдущую позицию
                     player.setPosition(prevX, prevY);
+                    break;
+                }
+
+                if(ast.intersects(secondPlayer)){ //если астероид пересекает игрока, то возвращаем игрока на предыдущую позицию
+                    secondPlayer.setPosition(prevXSecondPlayer, prevYSecondPlayer);
                     break;
                 }
 
