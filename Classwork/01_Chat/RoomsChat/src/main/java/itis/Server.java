@@ -1,5 +1,8 @@
 package itis;
 
+import itis.communicationTakesTurns.RoomSecondType;
+import itis.parallelСommunication.Room;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -21,7 +24,11 @@ public class Server {
                 Socket socket1 = serverSocket.accept();
                 System.out.println("First client is available. Waiting for second client...");
 
-                Room room = new Room(socket1);
+                //вариант где пользователи общаются "параллельно"
+                //Room room = new Room(socket1);
+
+                //вариант где они общаются по очереди
+                RoomSecondType room = new RoomSecondType(socket1);
 
                 Socket socket2 = serverSocket.accept();
                 System.out.println("Second client is available!");

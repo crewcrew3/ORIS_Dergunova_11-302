@@ -1,4 +1,4 @@
-package itis;
+package itis.parallelСommunication;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -25,7 +25,8 @@ public class Room implements Runnable {
 
     @Override
     public void run() {
-        
+        /*здесь скорее всего должна быть какая-то дополнительная логика с комнатой, но в данном задании ее нет. Поэтому не
+        могу предположить что еще сюда писать */
     }
 }
 
