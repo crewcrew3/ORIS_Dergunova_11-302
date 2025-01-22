@@ -8,7 +8,7 @@ import static GameObjects.game.*;
 
 class player extends sprite {
 
-    private static AnimationTimer firing;
+    private AnimationTimer firing; //убрала отсюда static чтобы каждый игрок мог стрелять
     private long lastUpdate;
     private double velocityX;
     private double velocityY;
