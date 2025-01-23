@@ -12,6 +12,7 @@ module itis.chat {
     requires com.almasb.fxgl.all;
 
     opens itis.chat to javafx.fxml;
+    opens itis.chat.controllers to javafx.fxml;
     exports itis.chat;
     exports itis.chat.controllers;
 }

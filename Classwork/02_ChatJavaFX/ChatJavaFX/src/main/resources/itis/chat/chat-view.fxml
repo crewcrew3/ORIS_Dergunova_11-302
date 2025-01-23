@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="itis.chat.controllers.ChatController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="itis.chat.controllers.ChatController">
+   <children>
+      <HBox layoutY="288.0" prefHeight="112.0" prefWidth="600.0">
+         <children>
+            <TextArea fx:id="taMessage" onKeyPressed="#onKeyPressed" prefHeight="112.0" prefWidth="620.0" promptText="Введите сообщение..">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" />
+               </HBox.margin>
+            </TextArea>
+            <Button fx:id="btnSend" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="26.0" prefWidth="366.0" text="Отправить" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin></Button>
+         </children>
+      </HBox>
+      <VBox fx:id="chat" prefHeight="287.0" prefWidth="600.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0" />
+   </children>
 </AnchorPane>
