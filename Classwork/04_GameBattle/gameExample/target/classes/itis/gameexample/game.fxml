@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="itis.gameexample.GameController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="300.0">
+         <children>
+            <Label prefHeight="60.0" prefWidth="115.0" text="Player 1" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+            <Slider fx:id="slider1" layoutX="80.0" layoutY="193.0" />
+            <ProgressBar fx:id="progressBar1" layoutX="14.0" layoutY="75.0" prefHeight="20.0" prefWidth="160.0" progress="0.0" />
+            <Button fx:id="btnKick1" layoutX="124.0" layoutY="223.0" mnemonicParsing="false" text="Kick!" />
+            <Label fx:id="HP1" layoutX="15.0" layoutY="95.0" text="HP" AnchorPane.leftAnchor="50.0" />
+         </children>
+      </AnchorPane>
+
+      <AnchorPane layoutX="300.0" prefHeight="400.0" prefWidth="300.0">
+         <children>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="260.0" layoutY="36.0" prefHeight="60.0" prefWidth="115.0" text="Player 2" textAlignment="RIGHT" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+            <Slider fx:id="slider2" layoutX="80.0" layoutY="193.0" />
+            <ProgressBar fx:id="progressBar2" layoutX="125.0" layoutY="75.0" prefHeight="20.0" prefWidth="160.0" progress="0.0" />
+            <Button fx:id="btnKick2" layoutX="124.0" layoutY="223.0" mnemonicParsing="false" text="Kick!" />
+            <Label fx:id="HP2" layoutX="269.0" layoutY="95.0" text="HP" AnchorPane.rightAnchor="50.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
